@@ -2,10 +2,22 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>whoisMy94</title>
+	<title>rock</title>
+	<script type="text/javascript">
+	function touchRock(){
+		var uname = prompt("What is your name?","Enter your name");
+		if (uname) {
+			alert("I'm good to meet you, " + uname + ".");
+			document.getElementById("rock").src="rock_happy.png";
+		}
+		return uname
+		
+	}
+	</script>
 </head>
-<body>
-	<h2>我的尊姓大名：whoisMy94</h2>
-	 <p>I'm good man!</p>
+<body onload="alert('hello,I am you pet rock')">
+	<div style="margin-top:100px;text-align:center">
+		<img src="rock.png" style="cursor:pointer" id="rock" onclick="return touchRock()" alt="">
+	</div>
 </body>
 </html>
