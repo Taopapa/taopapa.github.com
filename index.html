@@ -3,10 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>iRock-The Virtual Pet Rock</title>
+	<script type="text/javascript" src="cookie.js"></script>
 	<script type="text/javascript">
 		var userName;
 		function greetUser(){
-			alert('Hello,I am your pet rock.');
+			if (navigator.cookieEnabled) {
+				userName = readCookie("irock_username");
+				if (userName) {
+					alert('Hello ' + userName + ", I missing you.");
+				}
+				else{
+					alert('Hello,I am your pet rock.');
+				}
+			}
+			
 		}
 		function resizeRock(){
 			document.getElementById("rockImg").style.height = (document.body.clientHeight-100)*0.9;
@@ -19,16 +29,23 @@
 				userName = prompt("What is your name?","Enter your name here.");
 				if (userName) {
 					alert("It is good to meet you," + userName + ".");
+					if (navigator.cookieEnabled) {
+						writeCookie("irock_username",userName,5 * 365)
+					}
+					else{
+						alert("Sorry.Cookies aren't supported/enabled in your browser.I won't remember you later.");
+					}
+					
 				}
 			}
-			document.getElementById("rockImg").src = "rock_happy.png";
-			setTimeout("document.getElementById('rockImg').src='rock.png';",1*5*1000);
+			document.getElementById("rockImg").src = "images/rock_happy.png";
+			setTimeout("document.getElementById('rockImg').src='images/rock.png';",1*5*1000);
 		}
 	</script>
 </head>
-<body onload="resizeRock();greetUser();">
+<body onload="resizeRock();greetUser();" onresize="resizeRock();">
 	<div style="margin-top: 100px;text-align: center">
-		<img id="rockImg" src="rock.png" style="cursor:pointer;" alt="iRock" onclick="return touchRock()">
+		<img id="rockImg" src="images/rock.png" style="cursor:pointer;" alt="iRock" onclick="touchRock()">
 	</div>
 </body>
 </html>
