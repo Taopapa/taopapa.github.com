@@ -38,14 +38,14 @@
 					
 				}
 			}
-			document.getElementById("rockImg").src = "rock_happy.png";
-			setTimeout("document.getElementById('rockImg').src='rock.png';",1*5*1000);
+			document.getElementById("rockImg").src = "images/rock_happy.png";
+			setTimeout("document.getElementById('rockImg').src='images/rock.png';",1*5*1000);
 		}
 	</script>
 </head>
 <body onload="resizeRock();greetUser();" onresize="resizeRock();">
 	<div style="margin-top: 100px;text-align: center">
-		<img id="rockImg" src="rock.png" style="cursor:pointer;" alt="iRock" onclick="touchRock()">
+		<img id="rockImg" src="images/rock.png" style="cursor:pointer;" alt="iRock" onclick="touchRock()">
 	</div>
 </body>
 </html>
