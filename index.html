@@ -2,50 +2,83 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>iRock-The Virtual Pet Rock</title>
-	<script type="text/javascript" src="js/cookie.js"></script>
+	<title>Duncans' Just-In-Time Donuts</title>
 	<script type="text/javascript">
-		var userName;
-		function greetUser(){
-			if (navigator.cookieEnabled) {
-				userName = readCookie("irock_username");
-				if (userName) {
-					alert('Hello ' + userName + ", I missing you.");
-				}
-				else{
-					alert('Hello,I am your pet rock.');
-				}
+		function updateOrder() {
+			const TAXRATE = 0.0925;
+			const DONUTPRICE = 0.50;
+			var numCakeDonuts = parseDonuts(document.getElementById("cakedonuts").value);
+			var numGlazedDonuts = parseDonuts(document.getElementById("glazeddonuts").value);
+			if (isNaN(numCakeDonuts)) {
+				numCakeDonuts = 0;
 			}
-			
+			if (isNaN(numGlazedDonuts)) {
+				numGlazedDonuts = 0;
+			}
+			var subTotal = (numGlazedDonuts + numCakeDonuts) * DONUTPRICE;
+			var tax = subTotal * TAXRATE;
+			var total = subTotal + tax;
+			document.getElementById("subtotal").value = "$" + subTotal.toFixed(2);
+			document.getElementById("tax").value = "$" + tax.toFixed(2);
+			document.getElementById("total").value = "$" + total.toFixed(2);
 		}
-		function resizeRock(){
-			document.getElementById("rockImg").style.height = (document.body.clientHeight-100)*0.9;
+		function parseDonuts(donutString){
+			numDonuts = parseInt(donutString);
+			if (donutString.indexOf("dozen") != -1) {
+				numDonuts *= 12;
+			}
+			return numDonuts;
 		}
-		function touchRock(){
-			if (userName) {
-				alert("I like the attention, " + userName + ". Thank you.");
-			}
-			else{
-				userName = prompt("What is your name?","Enter your name here.");
-				if (userName) {
-					alert("It is good to meet you," + userName + ".");
-					if (navigator.cookieEnabled) {
-						writeCookie("irock_username",userName,5 * 365)
-					}
-					else{
-						alert("Sorry.Cookies aren't supported/enabled in your browser.I won't remember you later.");
-					}
-					
-				}
-			}
-			document.getElementById("rockImg").src = "images/rock_happy.png";
-			setTimeout("document.getElementById('rockImg').src='images/rock.png';",1*5*1000);
+		function placeOrder(form){
+			if (document.getElementById("name").value == "")
+          alert("I'm sorry but you must provide your name before submitting an order.");
+        else if (document.getElementById("pickupminutes").value == "" ||
+          isNaN(document.getElementById("pickupminutes").value))
+          alert("I'm sorry but you must provide the number of minutes until pick-up before submitting an order.");
+        else
+          // Submit the order to the server
+          form.submit();
+
 		}
 	</script>
 </head>
-<body onload="resizeRock();greetUser();" onresize="resizeRock();">
-	<div style="margin-top: 100px;text-align: center">
-		<img id="rockImg" src="images/rock.png" style="cursor:pointer;" alt="iRock" onclick="touchRock()">
+<body>
+	<div id="frame" style="text-align: center;padding: 0 30%;">
+		<div class="title">
+			<h2>Duncan's Just-In-Time Donuts</h2>
+			<h4><i>All donuts 50 cents each,cake or glazed!</i></h4>
+		</div>
+		<div class="left" style="float: left">
+			<img src="images/donuttime.png">
+		</div>
+		<div class="right" style="float: right">
+			<form name="orderform" action="donuts.php" method="post" style="text-align: right">
+				<div class="field">
+					Name: <input type="text" name="name" id="name">
+				</div>
+				<div class="field">
+					# of cake donuts: <input type="text" id="cakedonuts" name="cakedonuts" value="" onchange="updateOrder();">
+				</div>
+				<div class="field">
+					# of glazed donuts: <input type="text" id="glazeddonuts" name="glazeddonuts" value="" onchange="updateOrder();">
+				</div>
+				<div class="field">
+					Minutes 'til pickup:<input type="text" id="pickupminutes" name="pickupminutes">
+				</div>
+				<div class="field">
+					Subtotal: <input type="text" id="subtotal" value="" name="subtotal" readonly>
+				</div>
+				<div class="field">
+					Tax: <input type="text" id="tax" value="" name="tax" readonly>
+				</div>
+				<div class="field">
+					Total: <input type="text" id="total" value="" name="total" readonly>
+				</div>
+				<div class="field">
+					<input type="button" value="Place Order" onclick="placeOrder(this.form)">
+				</div>
+			</form>
+		</div>
 	</div>
 </body>
 </html>
