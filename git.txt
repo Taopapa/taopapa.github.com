@@ -102,7 +102,7 @@ $ git config --global user.email "email"
 
 四 合并分支 （git merge）
 1.$ git merge amazing_new_feature
-
+2.$ git rebase amazing_new_feature(origin)
 
 五 删掉分支
 
