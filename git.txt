@@ -1,0 +1,110 @@
+一 安装完git后（两步）：
+1.git config --global user.name "My Name"
+2.git config --global user.emial "My Email"
+
+二 创建一个新仓库
+cd d:
+cd happy
+mkdir rrdai
+cd rrdai
+git init //主要代码
+
+三 检查状态
+git status
+
+四 暂存
+git add hello.txt //修改一个操作,把修改操作从工作区添加到暂存区
+git add . || git add -A//本目录下的所有操作
+
+五 提交
+git commit -m "提交描述"//把暂存区的操作转移到版本库中
+
+六 删除文件
+1，git rm 文件名
+2，git commit -m ""
+
+
+
+查看用户名和邮箱地址：
+
+$ git config user.name
+
+$ git config user.email
+1
+2
+3
+4
+修改用户名和邮箱地址：
+
+$ git config --global user.name "username"
+
+$ git config --global user.email "email"
+
+
+
+
+远端仓库
+
+一 链接远端仓库（git remote add）
+
+//为了能够上传到远端仓库，我们需要先建立起链接,远端仓库的地址为：
+1.https://github.com/tutorialzine/awesome-project
+
+//添加测试用的远端仓库
+2.$ git remote add origin https://github.com/tutorialzine/awesome-project.git
+/*
+一个项目可以同时拥有好几个远端仓库为了能够区分，通常会起不同的名字。
+!!!!!!!!通常主远端仓库被称为origin。
+*/
+
+
+二 上传到服务器 (git push)
+
+//git push命令会有两个参数，远端仓库的名字，以及分支的名字：
+1.$ git push origin master
+
+
+
+三 克隆仓库 （git clone）
+/*
+放在Github上的开源项目，人们可以看到你的代码。可以使用 git clone进行下载到本地。
+本地也会创建一个新的仓库，并自动将github上的分支设为远端分支。
+*/
+1.$ git clone https://github.com/tutorialzine/awesome-project.git
+
+
+
+四 从服务器上拉取代码 （git pull）
+//如果你更新了代码到仓库上，其他人可以通过git pull命令拉取你的变动：
+1.$ git pull origin master
+
+
+
+
+
+分支
+
+一 创建新分支 （git branch）
+//每一个仓库的默认分支都叫master, 创建新分支可以这样：
+//创建了一个名为amazing_new_feature的新分支，它跟当前分支同一起点
+1.$ git branch amazing_new_feature(分支名)
+
+
+二 查看分支 (git branch)
+1.$ git branch
+
+
+三 切换分支 （git checkout）
+
+//* 号表示当前活跃分支为master，使用git checkout切换分支。
+1.$ git checkout amazing_new_feature
+
+
+四 合并分支 （git merge）
+1.$ git merge amazing_new_feature
+
+
+五 删掉分支
+
+1.$ git branch -d amazing_new_feature
+
